@@ -1,0 +1,17 @@
+from flask import Flask, jsonify, render_template
+import pandas as pd
+from sqlalchemy import create_engine
+
+app = Flask(__name__)
+engine = create_engine("sqlite:///data/happiness.sqlite")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/api/happiness")
+def cities():
+    return pd.read_sql_table("happiness", engine).to_json(orient="records")
+
+if __name__ == "__main__":
+    app.run(debug=True)
