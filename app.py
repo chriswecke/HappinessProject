@@ -5,7 +5,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 engine = create_engine("sqlite:///data/happiness.sqlite")
@@ -28,6 +28,10 @@ def welcome():
         f"/api/countries<br/>"
     )
 
+@app.route("/map")
+def choropleth():
+    return render_template("choropleth.html")
+
 @app.route("/api/happiness")
 def names():
     # Create our session (link) from Python to the DB
@@ -46,17 +50,27 @@ def countries():
 
     """Return a list of passenger data including the name, age, and sex of each passenger"""
     # Query all passengers
-    results = session.query(Happiness.ISO3, Happiness.Country, Happiness.Region).all()
+    results = session.query(Happiness.ISO3, Happiness.Country, Happiness.Region, Happiness.Score,
+                                Happiness.GDP, Happiness.Social_Support, Happiness.Life_Exp, Happiness.Freedom_Choice,
+                                 Happiness.Generosity, Happiness.Corruption, Happiness.Year).all()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of all_countries
     all_countries = []
-    for ISO3, Country, Region in results:
+    for ISO3, Country, Region, Score, GDP, Social_Support, Life_Exp, Freedom_Choice, Generosity, Corruption, Year in results:
         countries_dict = {}
         countries_dict["ISO3"] = ISO3
         countries_dict["Country"] = Country
         countries_dict["Region"] = Region
+        countries_dict["Happiness Score"] = Score
+        countries_dict["GDP"] = GDP
+        countries_dict["Social Support"] = Social_Support
+        countries_dict["Life Expectancy"] = Life_Exp
+        countries_dict["Freedom to Make Choices"] = Freedom_Choice
+        countries_dict["Generosity"] = Generosity
+        countries_dict["Corruption Perception"] = Corruption
+        countries_dict["Year"] = Year
         all_countries.append(countries_dict)
 
     return jsonify(all_countries)
