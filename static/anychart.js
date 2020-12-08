@@ -10,10 +10,10 @@ anychart.onDocumentReady(function () {
         var geoData = data
 
         // sum of all cases per country
-        var sumCases = 0;
+        // var sumCases = 0;
 
         // convert cases to numbers
-        var numC;
+        // var numC;
 
         // // create a new array with the resulting data
         var data = [];
@@ -36,8 +36,8 @@ anychart.onDocumentReady(function () {
             // insert the resulting data in the array using the AnyChart keywords 
             data.push({
                 id: "AF",
-                // value: geoData[i]["Happiness Score"],
-                title: geoData[i].Country
+                value: geoData[i]["Happiness Score"],
+                //title: geoData[i].Region
             })
 
             // reset the variables to start over
