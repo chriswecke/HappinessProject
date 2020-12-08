@@ -36,7 +36,7 @@ def choropleth():
 @app.route("/api/happiness")
 def names():
     # Create our session (link) from Python to the DB
-    session = Session(engine)
+    #session = Session(engine)
     return jsonify(pd.read_sql_table("happiness", engine).to_json(orient="records"))
 
 

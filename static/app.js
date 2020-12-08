@@ -1,8 +1,8 @@
 // API key
 //const API_KEY = "pk.eyJ1IjoibWFycmlvdHQiLCJhIjoiY2tobmlvODhwMDBmNjJ5cDZ4a3p0NXM1eSJ9.VI10ZBv3wdgLH5wpLoSTCA";
 
-d3.json("/api/happiness", function(happiness) { 
-  console.log(happiness)
+d3.json("/api/happiness", function(data) { 
+  console.log(data)
 });
 
 //   var myMap = L.map("map", {
