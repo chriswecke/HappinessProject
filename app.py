@@ -51,7 +51,7 @@ def countries():
 
     """Return a list of passenger data including the name, age, and sex of each passenger"""
     # Query all passengers
-    results = session.query(Happiness.ISO3, Happiness.Country, Happiness.Region, Happiness.Score,
+    results = session.query(Happiness.ISO2, Happiness.ISO3, Happiness.Country, Happiness.Region, Happiness.Score,
                                 Happiness.GDP, Happiness.Social_Support, Happiness.Life_Exp, Happiness.Freedom_Choice,
                                  Happiness.Generosity, Happiness.Corruption, Happiness.Year).all()
 
@@ -59,12 +59,13 @@ def countries():
 
     # Create a dictionary from the row data and append to a list of all_countries
     all_countries = []
-    for ISO3, Country, Region, Score, GDP, Social_Support, Life_Exp, Freedom_Choice, Generosity, Corruption, Year in results:
+    for ISO2, ISO3, Country, Region, Score, GDP, Social_Support, Life_Exp, Freedom_Choice, Generosity, Corruption, Year in results:
         countries_dict = {}
+        countries_dict["ISO2"] = ISO2
         countries_dict["ISO3"] = ISO3
         countries_dict["Country"] = Country
         countries_dict["Region"] = Region
-        countries_dict["Happiness Score"] = Score
+        countries_dict["Happiness_Score"] = Score
         countries_dict["GDP"] = GDP
         countries_dict["Social Support"] = Social_Support
         countries_dict["Life Expectancy"] = Life_Exp

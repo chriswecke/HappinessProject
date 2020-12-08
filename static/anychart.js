@@ -17,13 +17,15 @@ anychart.onDocumentReady(function () {
         for (var i = 0; i < geoData.length; i++) {
             
             // insert the resulting data in the array using the AnyChart keywords 
-            data.push({ id: geoData[i].ISO3, value: geoData[i].Score, title: geoData[i].Country })
+            data.push({ id: geoData[i].ISO2, value: geoData[i].Happiness_Score, title: geoData[i].Country })
             // data.push({
             //     id: "KE",
             //     value: "1.5",
             //     //title: geoData[i].Region
             // })
         };
+
+        console.log(data)
 
         // connect the data with the map
         var chart = anychart.map(data);
