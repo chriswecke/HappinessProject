@@ -1,14 +1,11 @@
 anychart.onDocumentReady(function () {
 
     // load the data
-    // anychart.data.loadJsonFile("https://static.anychart.com/git-storage/word-press/data/choropleth-map-tutorial/data.json", function (data) {
     anychart.data.loadJsonFile("/api/countries", function (data) {
         console.log(data)
 
-        // Variables
-        // go into the records section of the data
-        
-        var geoData = data
+        // Variable to hold the data
+        var geoData = data 
 
         // // create a new array with the resulting data
         var data = [];
@@ -18,11 +15,7 @@ anychart.onDocumentReady(function () {
             
             // insert the resulting data in the array using the AnyChart keywords 
             data.push({ id: geoData[i].ISO2, value: geoData[i].Happiness_Score, title: geoData[i].Country })
-            // data.push({
-            //     id: "KE",
-            //     value: "1.5",
-            //     //title: geoData[i].Region
-            // })
+            
         };
 
         console.log(data)
@@ -40,18 +33,18 @@ anychart.onDocumentReady(function () {
 
         // color scale ranges
         ocs = anychart.scales.ordinalColor([
-            { less: .99 },
-            { from: 1, to: 1.99 },
-            { from: 2, to: 2.99 },
-            { from: 3, to: 3.99 },
-            { from: 4, to: 4.99 },
-            { from: 5, to: 5.99 },
-            { from: 6, to: 6.99 },
+            { less: 3.99 },
+            { from: 4, to: 4.49 },
+            { from: 4.5, to: 4.99 },
+            { from: 5, to: 5.49 },
+            { from: 5.50, to: 5.99 },
+            { from: 6, to: 6.49 },
+            { from: 6.50, to: 6.99 },
             { greater: 7 }
         ]);
 
         // set scale colors
-        ocs.colors(["rgb(252,245,245)", "rgb(241,219,216)", "rgb(229,190,185)", "rgb(211,152,145)", "rgb(192,117,109)", "rgb(178,93,86)", "rgb(152,50,48)", "rgb(150,33,31)"]);
+        ocs.colors(["rgb(255, 0, 0)", "	rgb(255, 128, 0)", "rgb(255,255,0)", "rgb(0,255,0)", "rgb(0,255,255)", "rgb(0,128,255)", "rgb(0,0,255)", "rgb(128,0,255)"]);
 
         // tell the series what to use as a colorRange (colorScale)
         series.colorScale(ocs);

@@ -23,14 +23,25 @@
                 <div id="container"></div>
             </div>
             <div class="col-md-2">
-                <select id="dropdown"></select>
-                <div id="info">
-                    <h3>Filter Year</h3>
-                    <select id="selDataset" onchange="optionChanged(this.value)"></select>
-                </div>
+                <label for="year-select">Choose a year:</label>
+    
+                <select id="year-select" onchange="myFunction()">
+                    <!-- <option value="">--Please choose data year--</option> -->
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select>
+                <p id="demo"></p>
+                <script>
+                    function myFunction() {
+                      var x = document.getElementById("year-select").value;
+                      document.getElementById("demo").innerHTML = "You selected: " + x;
+                    }
+                    </script>
+                <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
             </div>
-            
         </div>
+    
+    </div>
     </div>
 
 
