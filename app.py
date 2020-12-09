@@ -97,8 +97,8 @@ def countries1():
     return jsonify(results)
 
 
-@app.route("/data")
-def pov():
+@app.route("/data/<x>")
+def pov(x):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
@@ -106,7 +106,8 @@ def pov():
     # Query all passengers
     results = session.query(Happiness.ISO2, Happiness.ISO3, Happiness.Country, Happiness.Region, Happiness.Score,
                                 Happiness.GDP, Happiness.Social_Support, Happiness.Life_Exp, Happiness.Freedom_Choice,
-                                 Happiness.Generosity, Happiness.Corruption, Happiness.Year).all()
+                                 Happiness.Generosity, Happiness.Corruption, Happiness.Year).filter(Happiness.Year==x).all()
+    print(results)
 
     session.close()
 

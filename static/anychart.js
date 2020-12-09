@@ -1,7 +1,14 @@
-anychart.onDocumentReady(function () {
+function myFunction() {
+    var x = document.getElementById("year-select").value;
+    document.getElementById("demo").innerHTML = "You selected: " + x;
 
+    function clearcontent(elementID) { 
+        document.getElementById("container-map").innerHTML = ""; 
+    } 
+
+    //#container-map.html("");
     // load the data
-    anychart.data.loadJsonFile("/api/countries", function (data) {
+    anychart.data.loadJsonFile(`/data/${x}`, function (data) {
         console.log(data)
 
         // Variable to hold the data
@@ -63,11 +70,11 @@ anychart.onDocumentReady(function () {
             
 
         // set the container id
-        chart.container('container');
+        chart.container('container-map');
 
         // draw the chart
         chart.draw();
     });
 
 
-});
+};
