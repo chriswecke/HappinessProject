@@ -180,7 +180,7 @@ function myFunction() {
     }
     
     // Retrieve data from the CSV file and execute everything below
-    d3.json(`/data/${x}`).then(function(err, hairData) { 
+    d3.json(`/data/${x}`, function(err, hairData) { 
     // d3.csv("hairData.csv").then(function(hairData, err) {
       if (err) throw err;
       console.log(hairData);
