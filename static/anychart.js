@@ -2,9 +2,9 @@ function myFunction() {
     var x = document.getElementById("year-select").value;
     document.getElementById("demo").innerHTML = "You selected: " + x;
 
-    function clearcontent(elementID) { 
-        document.getElementById("container-map").innerHTML = ""; 
-    } 
+    // Clear map container
+    document.getElementById("container").innerHTML = ""; 
+     
 
     //#container-map.html("");
     // load the data
@@ -70,7 +70,7 @@ function myFunction() {
             
 
         // set the container id
-        chart.container('container-map');
+        chart.container('container');
 
         // draw the chart
         chart.draw();
