@@ -99,6 +99,8 @@ d3.json("/data").then(function(err, hairData) {
   if (err) throw err;
     console.log(hairData);
 
+
+hairData = geoData
   // parse data
   hairData.forEach(function(data) {
     data.GDP = +data.GDP;
