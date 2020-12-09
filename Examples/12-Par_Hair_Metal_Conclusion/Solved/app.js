@@ -27,11 +27,11 @@ var chartGroup = svg.append("g")
 var chosenXAxis = "GDP";
 
 // function used for updating x-scale var upon click on axis label
-function xScale(hairData, chosenXAxis) {
+function xScale(happyData, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(hairData, d => d[chosenXAxis]) * 0.8,
-      d3.max(hairData, d => d[chosenXAxis]) * 1.2
+    .domain([d3.min(happyData, d => d[chosenXAxis]) * 0.8,
+      d3.max(happyData, d => d[chosenXAxis]) * 1.2
     ])
     .range([0, width]);
 
@@ -94,25 +94,25 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.json("/api/happiness").then(function(hairData, err) { 
+d3.json("/api/happiness").then(function(happyData, err) { 
 
 
-//d3.csv("hairData.csv").then(function(hairData, err) {
+//d3.csv("happyData.csv").then(function(happyData, err) {
   if (err) throw err;
 
   // parse data
-  hairData.forEach(function(data) {
+  happyData.forEach(function(data) {
     data.GDP = +data.GDP;
     data.Score = +data.Score;
     data.Life_Exp = +data.Life_Exp;
   });
 
   // xLinearScale function above csv import
-  var xLinearScale = xScale(hairData, chosenXAxis);
+  var xLinearScale = xScale(happyData, chosenXAxis);
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(hairData, d => d.Score)])
+    .domain([0, d3.max(happyData, d => d.Score)])
     .range([height, 0]);
 
   // Create initial axis functions
@@ -131,7 +131,7 @@ d3.json("/api/happiness").then(function(hairData, err) {
 
   // append initial circles
   var circlesGroup = chartGroup.selectAll("circle")
-    .data(hairData)
+    .data(happyData)
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
@@ -184,7 +184,7 @@ d3.json("/api/happiness").then(function(hairData, err) {
 
         // functions here found above csv import
         // updates x scale for new data
-        xLinearScale = xScale(hairData, chosenXAxis);
+        xLinearScale = xScale(happyData, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
