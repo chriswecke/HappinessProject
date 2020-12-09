@@ -27,6 +27,8 @@ def welcome():
         f"/api/happiness1<br/>"
         f"/api/countries<br/>"
         f"/map<br/>"
+        f"/scatter<br/>"
+        f"/data<br/>"
     )
 
 @app.route("/map")
