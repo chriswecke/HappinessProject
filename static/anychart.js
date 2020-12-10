@@ -321,5 +321,6 @@ function myFunction() {
             }
           }
         });
-      })
-    };
+      }).catch(function(error) {
+        console.log(error);
+    })}
