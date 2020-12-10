@@ -1,12 +1,10 @@
 function myFunction() {
     var x = document.getElementById("year-select").value;
-    document.getElementById("demo").innerHTML = "You selected: " + x;
+    // document.getElementById("demo").innerHTML = "You selected: " + x;
 
     // Clear map container
     document.getElementById("container").innerHTML = ""; 
      
-
-    //#container-map.html("");
     // load the data
     anychart.data.loadJsonFile(`/data/${x}`, function (data) {
         console.log(data)
@@ -15,7 +13,7 @@ function myFunction() {
         var geoData = data
         var hairData = data
 
-        // // create a new array with the resulting data
+        // create a new array with the resulting data
         var data = [];
 
         // Go through the initial data
@@ -39,6 +37,17 @@ function myFunction() {
         // set the chart title
         chart.title("Happiness Score by Country");
 
+        // Adjust country fill color on hover and click
+        series
+            .hovered()
+            .fill('#f48fb1')
+            .stroke(anychart.color.darken('#f48fb1'));
+
+            series
+            .selected()
+            .fill('#c2185b')
+            .stroke(anychart.color.darken('#c2185b'));
+
         // color scale ranges
         ocs = anychart.scales.ordinalColor([
             { less: 3.999 },
@@ -52,10 +61,21 @@ function myFunction() {
         ]);
 
         // set scale colors
-        ocs.colors(["rgb(255, 0, 0)", "	rgb(255, 128, 0)", "rgb(255,255,0)", "rgb(0,255,0)", "rgb(0,255,255)", "rgb(0,128,255)", "rgb(0,0,255)", "rgb(128,0,255)"]);
+        ocs.colors(["rgb(255, 0, 0)",
+                    "rgb(255, 128, 0)",
+                    "rgb(255,255,0)",
+                    "rgb(0,255,0)",
+                    "rgb(0,255,255)",
+                    "rgb(0,128,255)",
+                    "rgb(0,0,255)",
+                    "rgb(128,0,255)"]);
 
         // tell the series what to use as a colorRange (colorScale)
         series.colorScale(ocs);
+
+        // create zoom controls
+        var zoomController = anychart.ui.zoom();
+        zoomController.render(chart);
 
         // enable the legend
         chart.legend(true);
