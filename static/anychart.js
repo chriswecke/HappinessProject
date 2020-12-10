@@ -13,7 +13,7 @@ function myFunction() {
 
         // Variable to hold the data
         var geoData = data
-        var HairData = data
+        var hairData = data
 
         // // create a new array with the resulting data
         var data = [];
@@ -156,7 +156,7 @@ function myFunction() {
         label = "GDP:";
       }
       else {
-        label = "# of Albums:";
+        label = "Life_Exp:";
       }
     
       var toolTip = d3.tip()
@@ -190,16 +190,16 @@ function myFunction() {
       // parse data
       hairData.forEach(function(data) {
         data.GDP = +data.GDP;
-        data.Score = +data.Score;
-        data.Life_Exp = +data.Life_Exp;
+        data.Happiness_Score = +data.Happiness_Score;
+        data.Life_Exp = +(data['Life Expectancy']);
       });
     
-      // xLinearScale function above csv import
+      // xLinearScale function above csv impocrt
       var xLinearScale = xScale(hairData, chosenXAxis);
     
       // Create y scale function
       var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(hairData, d => d.Score)])
+        .domain([0, d3.max(hairData, d => d.Happiness_Score)])
         .range([height, 0]);
     
       // Create initial axis functions
@@ -222,7 +222,7 @@ function myFunction() {
         .enter()
         .append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
-        .attr("cy", d => yLinearScale(d.Score))
+        .attr("cy", d => yLinearScale(d.Happiness_Score))
         .attr("r", 20)
         .attr("fill", "pink")
         .attr("opacity", ".5");
@@ -231,19 +231,19 @@ function myFunction() {
       var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`);
     
-      var hairLengthLabel = labelsGroup.append("text")
+      var GDP_Label = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 20)
         .attr("value", "GDP") // value to grab for event listener
         .classed("active", true)
-        .text("Hair Metal Ban Hair Length (inches)");
+        .text("GDP per Capita");
     
-      var albumsLabel = labelsGroup.append("text")
+      var LifeExp_Label = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "Life_Exp") // value to grab for event listener
         .classed("inactive", true)
-        .text("# of Albums Released");
+        .text("Life Expectancy");
     
       // append y axis
       chartGroup.append("text")
@@ -252,7 +252,7 @@ function myFunction() {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .classed("axis-text", true)
-        .text("Number of Billboard 500 Hits");
+        .text("Happiness Score");
     
       // updateToolTip function above csv import
       var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
@@ -284,18 +284,18 @@ function myFunction() {
     
             // changes classes to change bold text
             if (chosenXAxis === "Life_Exp") {
-              albumsLabel
+              LifeExp_Label
                 .classed("active", true)
                 .classed("inactive", false);
-              hairLengthLabel
+              GDP_Label
                 .classed("active", false)
                 .classed("inactive", true);
             }
             else {
-              albumsLabel
+              LifeExp_Label
                 .classed("active", false)
                 .classed("inactive", true);
-              hairLengthLabel
+              GDP_Label
                 .classed("active", true)
                 .classed("inactive", false);
             }
