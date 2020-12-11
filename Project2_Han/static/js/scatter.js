@@ -122,6 +122,10 @@ function myFunction() {
       data.GDP = +data.GDP;
       data.Happiness_Score = +data.Happiness_Score;
       data.Life_Exp = +(data['Life Expectancy']);
+      data.Social_Support = +(data['Social Support']);
+      data.Freedom_Choices = +(data['Freedom to Make Choices']);
+      data.Generosity = +(data['Generosity']);
+      data.Corruption = +(data['Corruption Perception']);
     });
   
     // xLinearScale function above csv impocrt
@@ -174,6 +178,34 @@ function myFunction() {
       .attr("value", "Life_Exp") // value to grab for event listener
       .classed("inactive", true)
       .text("Life Expectancy");
+
+    var SocialSupport_Label = labelsGroup.append("text")
+      .attr("x", 0)
+      .attr("y", 60)
+      .attr("value", "Social_Support") // value to grab for event listener
+      .classed("inactive", true)
+      .text("Social Support");
+
+    var Freedom_Label = labelsGroup.append("text")
+      .attr("x", 0)
+      .attr("y", 80)
+      .attr("value", "Freedom_Choices") // value to grab for event listener
+      .classed("inactive", true)
+      .text("Freedom to Make Choices");
+
+    var Generosity_Label = labelsGroup.append("text")
+      .attr("x", 0)
+      .attr("y", 100)
+      .attr("value", "Generosity") // value to grab for event listener
+      .classed("inactive", true)
+      .text("Generosity");
+
+    var Corruption_Label = labelsGroup.append("text")
+      .attr("x", 0)
+      .attr("y", 120)
+      .attr("value", "Corruption") // value to grab for event listener
+      .classed("inactive", true)
+      .text("Perception of Corruption");
   
     // append y axis
     chartGroup.append("text")
@@ -220,12 +252,116 @@ function myFunction() {
             GDP_Label
               .classed("active", false)
               .classed("inactive", true);
+            SocialSupport_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Freedom_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Generosity_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Corruption_Label
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else if (chosenXAxis === "GDP") {
+            LifeExp_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            GDP_Label
+              .classed("active", true)
+              .classed("inactive", false);
+            SocialSupport_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Freedom_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Generosity_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Corruption_Label
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else if (chosenXAxis === "Social_Support") {
+            LifeExp_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            GDP_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            SocialSupport_Label
+              .classed("active", true)
+              .classed("inactive", false);
+            Freedom_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Generosity_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Corruption_Label
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else if (chosenXAxis === "Freedom_Choices") {
+            LifeExp_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            GDP_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            SocialSupport_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Freedom_Label
+              .classed("active", true)
+              .classed("inactive", false);
+            Generosity_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Corruption_Label
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else if (chosenXAxis === "Generosity") {
+            LifeExp_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            GDP_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            SocialSupport_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Freedom_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Generosity_Label
+              .classed("active", true)
+              .classed("inactive", false);
+            Corruption_Label
+              .classed("active", false)
+              .classed("inactive", true);
           }
           else {
             LifeExp_Label
               .classed("active", false)
               .classed("inactive", true);
             GDP_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            SocialSupport_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Freedom_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Generosity_Label
+              .classed("active", false)
+              .classed("inactive", true);
+            Corruption_Label
               .classed("active", true)
               .classed("inactive", false);
           }
