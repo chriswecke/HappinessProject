@@ -4,6 +4,9 @@ function myFunction() {
 
     // Clear map container
     document.getElementById("container").innerHTML = ""; 
+
+    // Clear scatter container
+    document.getElementById("scatter").innerHTML = ""; 
      
     // load the data
     anychart.data.loadJsonFile(`/data/${x}`, function (data) {
@@ -102,7 +105,8 @@ function myFunction() {
 
 //SCATTER CODE**********************************************************
 
-
+// Clear scatter container
+document.getElementById("scatter").innerHTML = "";
 
     var svgWidth = 960;
     var svgHeight = 500;
