@@ -12,6 +12,7 @@ function myFunction() {
 //SCATTER CODE**********************************************************
 
 // Clear scatter container
+//chartGroup.remove()
 // document.getElementById("scatter").innerHTML = "";
 
   var svgWidth = 960;
@@ -20,13 +21,16 @@ function myFunction() {
   var margin = {
     top: 20,
     right: 40,
-    bottom: 80,
+    bottom: 150,
     left: 100
   };
   
   var width = svgWidth - margin.left - margin.right;
   var height = svgHeight - margin.top - margin.bottom;
   
+  // Clear graph by removing the svg
+  d3.selectAll("svg").remove()
+
   // Create an SVG wrapper, append an SVG group that will hold our chart,
   // and shift the latter by left and top margins.
   var svg = d3
@@ -85,8 +89,20 @@ function myFunction() {
     if (chosenXAxis === "GDP") {
       label = "GDP:";
     }
-    else {
+    else if (chosenXAxis === "Life_Exp") {
       label = "Life_Exp:";
+    }
+    else if (chosenXAxis === "Social_Support") {
+      label = "Social_Support:";
+    }
+    else if (chosenXAxis === "Freedom_Choices") {
+      label = "Freedom_Choices:";
+    }
+    else if (chosenXAxis === "Generosity") {
+      label = "Generosity:";
+    }
+    else {
+      label = "Corruption:";
     }
   
     var toolTip = d3.tip()
@@ -157,9 +173,11 @@ function myFunction() {
       .append("circle")
       .attr("cx", d => xLinearScale(d[chosenXAxis]))
       .attr("cy", d => yLinearScale(d.Happiness_Score))
-      .attr("r", 20)
-      .attr("fill", "pink")
-      .attr("opacity", ".5");
+      .attr("r", 8)
+      .attr("stroke", "#663399")
+      .attr("stroke-width", 2)
+      .attr("fill", "#3CB371")
+      .attr("opacity", ".8");
   
     // Create group for two x-axis labels
     var labelsGroup = chartGroup.append("g")
