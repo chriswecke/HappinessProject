@@ -112,8 +112,9 @@ function myFunction() {
       .attr("class", "tooltip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score}<br>${label} ${d[chosenXAxis]}`);
-        // return (${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score.toFixed(2)}<br>${label} ${d[chosenXAxis]});
+        // return (`${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score}<br>${label} ${d[chosenXAxis]}`);
+        // return (`${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score.toFixed(2)}<br>${label} ${d[chosenXAxis]}`);
+        return (`${d.Country}<br>${"Happiness Score:"} ${d3.format(".2f") (d.Happiness_Score)}<br>${label} ${d3.format(".2f")(d[chosenXAxis])}`);
       });
   
     circlesGroup.call(toolTip);
