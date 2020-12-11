@@ -113,7 +113,7 @@ function myFunction() {
       .offset([80, -60])
       .html(function(d) {
         return (`${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score}<br>${label} ${d[chosenXAxis]}`);
-        //return (`${d.state}<br>${"% in Poverty"} ${d.poverty}<br>${label} ${d[chosenXAxis]}`);
+        // return (${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score.toFixed(2)}<br>${label} ${d[chosenXAxis]});
       });
   
     circlesGroup.call(toolTip);
@@ -153,7 +153,7 @@ function myFunction() {
   
     // Create y scale function
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(hairData, d => d.Happiness_Score)])
+      .domain([0, 8])
       .range([height, 0]);
   
     // Create initial axis functions
