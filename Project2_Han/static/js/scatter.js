@@ -109,7 +109,8 @@ function myFunction() {
       .attr("class", "tooltip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.Country}<br>${label} ${d[chosenXAxis]}`);
+        return (`${d.Country}<br>${"Happiness Score:"} ${d.Happiness_Score}<br>${label} ${d[chosenXAxis]}`);
+        //return (`${d.state}<br>${"% in Poverty"} ${d.poverty}<br>${label} ${d[chosenXAxis]}`);
       });
   
     circlesGroup.call(toolTip);
@@ -173,13 +174,13 @@ function myFunction() {
       .append("circle")
       .attr("cx", d => xLinearScale(d[chosenXAxis]))
       .attr("cy", d => yLinearScale(d.Happiness_Score))
-      .attr("r", 8)
-      .attr("stroke", "#663399")
-      .attr("stroke-width", 2)
-      .attr("fill", "#3CB371")
+      .attr("r", 10)
+      .attr("stroke", "#800080")
+      .attr("stroke-width", 3)
+      .attr("fill", "#00FFFF")
       .attr("opacity", ".8");
   
-    // Create group for two x-axis labels
+    // Create group for six x-axis labels
     var labelsGroup = chartGroup.append("g")
       .attr("transform", `translate(${width / 2}, ${height + 20})`);
   
@@ -188,42 +189,42 @@ function myFunction() {
       .attr("y", 20)
       .attr("value", "GDP") // value to grab for event listener
       .classed("active", true)
-      .text("GDP per Capita");
+      .text("GDP per Capita Score");
   
     var LifeExp_Label = labelsGroup.append("text")
       .attr("x", 0)
       .attr("y", 40)
       .attr("value", "Life_Exp") // value to grab for event listener
       .classed("inactive", true)
-      .text("Life Expectancy");
+      .text("Life Expectancy Score");
 
     var SocialSupport_Label = labelsGroup.append("text")
       .attr("x", 0)
       .attr("y", 60)
       .attr("value", "Social_Support") // value to grab for event listener
       .classed("inactive", true)
-      .text("Social Support");
+      .text("Social Support Score");
 
     var Freedom_Label = labelsGroup.append("text")
       .attr("x", 0)
       .attr("y", 80)
       .attr("value", "Freedom_Choices") // value to grab for event listener
       .classed("inactive", true)
-      .text("Freedom to Make Choices");
+      .text("Freedom to Make Choices Score");
 
     var Generosity_Label = labelsGroup.append("text")
       .attr("x", 0)
       .attr("y", 100)
       .attr("value", "Generosity") // value to grab for event listener
       .classed("inactive", true)
-      .text("Generosity");
+      .text("Generosity Score");
 
     var Corruption_Label = labelsGroup.append("text")
       .attr("x", 0)
       .attr("y", 120)
       .attr("value", "Corruption") // value to grab for event listener
       .classed("inactive", true)
-      .text("Perception of Corruption");
+      .text("Perception of Corruption Score");
   
     // append y axis
     chartGroup.append("text")

@@ -52,15 +52,15 @@ background-color: rgb(14, 104, 238);
 
 .tooltip {
   position: absolute;
-  width: 135px;
+  width: 140px;
   height: 60px;
   padding: 2px;
   padding-top: 8px;
   font: 12px sans-serif;
   color: white;
   text-align: center;
-  background: #551aaf;
-  border: 0;
+  background: rgb(14, 104, 238);
+  border: 1;
   border-radius: 10px;
 }
 
@@ -97,3 +97,29 @@ background-color: rgb(14, 104, 238);
   margin: 0;
   padding: 0;
 }
+
+.bg-image {
+  background-image: url("/static/images/globe1.jpg");
+  /* background-color: #cccccc; */
+  height: 900px;
+  opacity: .75S;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  }
+
+  b {
+    color: black;
+    font-size: 35px;
+    }
+  
+  c {
+    color: black;
+    font-size: 30px;
+    }  
+
+  li {
+    color: red;
+    font-size: 25px;
+    }
