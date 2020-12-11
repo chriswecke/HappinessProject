@@ -105,6 +105,9 @@ function myFunction() {
       label = "Corruption:";
     }
   
+    //Trying to format the d[chosenXAxis]
+    const formater =  d3.format(".2f")
+    
     var toolTip = d3.tip()
       .attr("class", "tooltip")
       .offset([80, -60])
