@@ -1,109 +1,97 @@
-// Create a map object
-var myMap = L.map("mapid", {
-    center: [32.7767, -96.7970],
-    zoom: 5
-});
+function myFunction() {
+    var x = document.getElementById("year-select").value;
+    // document.getElementById("demo").innerHTML = "You selected: " + x;
 
-// Define greymap layers
-L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/streets-v11",
-    accessToken: API_KEY
-}).addTo(myMap);
+    // Clear map container
+    document.getElementById("container").innerHTML = ""; 
+     
+    // load the data
+    anychart.data.loadJsonFile(`/data/${x}`, function (data) {
+        console.log(data)
 
-// Store our API endpoint inside queryUrl
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+        // Variable to hold the data
+        var geoData = data
+        
+        // create a new array with the resulting data
+        var data = [];
 
-// Perform a GET request to the query URL
-d3.json(queryUrl, function (data) {
-    // Once we get a response, send the data.features object to the createFeatures function
-    function createFeatures(feature) {
-        return {
-            fillColor: chooseColor(feature.geometry.coordinates[2]),
-            color: "black",
-            radius: chosenRadius(feature.properties.mag),
-            stroke: true,
-            weight: 1.0,
-            opacity: 1,
-            fillOpacity: 1
+        // Go through the initial data
+        for (var i = 0; i < geoData.length; i++) {
+
+            // insert the resulting data in the array using the AnyChart keywords 
+            data.push({ id: geoData[i].ISO2, value: geoData[i].Happiness_Score, title: geoData[i].Country })
+
         };
 
-        // Setting the radius of magnitude
-        function chosenRadius(magnitude) {
-            return magnitude * 4;
-        }
+        console.log(data)
 
-        // setting the color according to the number of magnitude reported
-        function chooseColor(depth) {
+        // connect the data with the map
+        var chart = anychart.map(data);
 
-            if (depth > 90) {
-                return "#ea2c2c";
-            } else if (depth > 70) {
-                return "#ea822c";
-            } else if (depth > 50) {
-                return "#ea822c";
-            } else if (depth > 30) {
-                return "#ee9c00";
-            } else if (depth > 10) {
-                return "#d4ee00";
-            } else {
-                return "#98ee00";
-            }
-        }
-    }
+        chart.geoData(anychart.maps.world);
 
-    // Here we add a GeoJSON layer to the map once the file is loaded.
-    L.geoJson(data, {
-        // We turn each feature into a circleMarker on the map.
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng);
-        },
-        // We set the style for each circleMarker using our styleInfo function.
-        style: createFeatures,
-        // We create a popup for each marker to display the magnitude and location of the earthquake after the marker has been created and styled
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(
-                "Magnitude: "
-                + feature.properties.mag
-                + "<br>Depth: "
-                + feature.geometry.coordinates[2]
-                + "<br>Location: "
-                + feature.properties.place
-            );
-        }
-    }).addTo(myMap);
+        // specify the chart type and set the series 
+        var series = chart.choropleth(data);
 
-    // Here we create a legend control object.
-    var legend = L.control({
-        position: "bottomright"
-    });
+        // set the chart title
+        chart.title("Happiness Score by Country");
 
-    // Then add all the details for the legend
-    legend.onAdd = function () {
-        var div = L.DomUtil.create("div", "info legend");
+        // Adjust country fill color on hover and click
+        series
+            .hovered()
+            .fill('#f48fb1')
+            .stroke(anychart.color.darken('#f48fb1'));
 
-        var grades = [-10, 10, 30, 50, 70, 90];
-        var colors = [
-            "#98ee00",
-            "#d4ee00",
-            "#eecc00",
-            "#ee9c00",
-            "#ea822c",
-            "#ea2c2c"
-        ];
+            series
+            .selected()
+            .fill('#c2185b')
+            .stroke(anychart.color.darken('#c2185b'));
 
-        // Looping through our intervals to generate a label with a colored square for each interval.
-        for (var i = 0; i < grades.length; i++) {
-            div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
-                + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
-        }
-        return div;
-    };
+        // color scale ranges
+        ocs = anychart.scales.ordinalColor([
+            { less: 3.999 },
+            { from: 4, to: 4.499 },
+            { from: 4.5, to: 4.999 },
+            { from: 5, to: 5.499 },
+            { from: 5.50, to: 5.999 },
+            { from: 6, to: 6.499 },
+            { from: 6.50, to: 6.999 },
+            { greater: 7 }
+        ]);
 
-    // Finally, we our legend to the map.
-    legend.addTo(myMap);
+        // set scale colors
+        ocs.colors(["rgb(255, 0, 0)",
+                    "rgb(255, 128, 0)",
+                    "rgb(255,255,0)",
+                    "rgb(0,255,0)",
+                    "rgb(0,255,255)",
+                    "rgb(0,128,255)",
+                    "rgb(0,0,255)",
+                    "rgb(128,0,255)"]);
 
-})
+        // tell the series what to use as a colorRange (colorScale)
+        series.colorScale(ocs);
+
+        // create zoom controls
+        var zoomController = anychart.ui.zoom();
+        zoomController.render(chart);
+
+        // enable the legend
+        chart.legend(true);
+
+        // set the source mode of the legend and add styles
+        chart.legend()
+            .itemsSourceMode("categories")
+            .position('right')
+            .align('top')
+            .itemsLayout('vertical')
+            .padding(50, 0, 0, 20)
+            .paginator(false);
+            
+
+        // set the container id
+        chart.container('container');
+
+        // draw the chart
+        chart.draw();
+    })};
