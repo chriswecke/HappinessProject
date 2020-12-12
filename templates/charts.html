@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="../static/css/style.css">
+
+        <script src="../static/js/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+
+        <title>Charts</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="/" id="logo"><img src="/static/images/happy5.png" alt=""
+                    style="padding-left:10px;width:100px;height:100px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown"> -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/map">Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/scatter">Scatter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/charts">Charts</a>
+                </li>
+            </ul>
+            <!-- </div> -->
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 jumbotron text-center">
+                    <h1>World Happiness Charts</h1>
+                    <p1>Use the interactive charts below to explore the dataset</p1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="y2018_bar" style="width:600px;height:350px;"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="y2019_bar" style="width:600px;height:350px;"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 style="text-align: center;">The World Happiness Report 2018 based on six factors</h4>
+                    <font face="Courier New" size="2">
+                        <table id="ufo-table" class="table table-striped" board=1>
+                            <thead>
+                                <tr>
+                                    <th class="table-head">Country</th>
+                                    <th class="table-head">Score</th>
+                                    <th class="table-head">GDP</th>
+                                    <th class="table-head">Social_Support</th>
+                                    <th class="table-head">Life_Exp</th>
+                                    <th class="table-head">Freedom_Choice</th>
+                                    <th class="table-head">Generosity</th>
+                                    <th class="table-head">Corruption</th>
+                                </tr>
+                            </thead>
+                            <tbody id="y2018_table"></tbody>
+                        </table>
+                    </font>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 style="text-align: center;">The World Happiness Report 2019 based on six factors</h4>
+                    <font face="Courier New" size="2">
+                        <table id="ufo-table" class="table table-striped" board=1>
+                            <thead>
+                                <tr>
+                                    <th class="table-head">Country</th>
+                                    <th class="table-head">Score</th>
+                                    <th class="table-head">GDP</th>
+                                    <th class="table-head">Social_Support</th>
+                                    <th class="table-head">Life_Exp</th>
+                                    <th class="table-head">Freedom_Choice</th>
+                                    <th class="table-head">Generosity</th>
+                                    <th class="table-head">Corruption</th>
+                                </tr>
+                            </thead>
+                            <tbody id="y2019_table"></tbody>
+                        </table>
+                    </font>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                Country:
+                <select id="country-select" onchange="comparison(this.value)">
+                    <option value="">select a country</option>
+                </select>
+                <!-- &nbsp;&nbsp;&nbsp;
+                Year:
+                <select id="year-select" onchange="myFunction()">
+                    <option value="">select a year</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select> -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <font face="Courier New" size="2">
+                        <table id="ufo-table" class="table table-striped" board=1>
+                            <thead>
+                                <tr>
+                                    <th class="table-head">Country</th>
+                                    <th class="table-head">Score</th>
+                                    <th class="table-head">GDP</th>
+                                    <th class="table-head">Social_Support</th>
+                                    <th class="table-head">Life_Exp</th>
+                                    <th class="table-head">Freedom_Choice</th>
+                                    <th class="table-head">Generosity</th>
+                                    <th class="table-head">Corruption</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compare_table"></tbody>
+                        </table>
+                    </font>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- <div class="col-md-2">
+                <label for="year-select">Choose a year:</label>
+    
+                <select id="year-select" onchange="myFunction()">
+                    <option value="">--Please choose data year--</option> comment out
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select>
+                <p id="demo"></p>
+                <script>
+                    function myFunction() {
+                      var x = document.getElementById("year-select").value;
+                      document.getElementById("demo").innerHTML = "You selected: " + x;
+                    }
+                    </script>
+                <select id="selDataset" onchange="optionChanged(this.value)"></select> comment out
+            </div> -->
+
+
+        <!-- </div>
+        </div> -->
+
+
+
+        <script src="../static/js/charts.js"></script>
+    </body>
+
+</html>
