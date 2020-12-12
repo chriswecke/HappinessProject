@@ -4,31 +4,31 @@ body {
 }
 
 #container {
-width: 100%;
-height: 50vh;
-margin: 0;
-padding: 0;
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  padding: 0;
 }
 
 #map,
 body,
 html {
-height: 100%;
+  height: 100%;
 }
 
 h1 {
-color: rgb(241, 241, 243);
-text-align: center;
+  color: rgb(241, 241, 243);
+  text-align: center;
 }
 
 p {
-color: rgb(28, 28, 133);
-text-align: center;
+  color: rgb(28, 28, 133);
+  text-align: center;
 }
 
 .jumbotron {
-opacity: .85;
-background-color: rgb(14, 104, 238);
+  opacity: .85;
+  background-color: rgb(14, 104, 238);
 }
 
 #hairmetal {
@@ -53,7 +53,7 @@ background-color: rgb(14, 104, 238);
 .tooltip {
   position: absolute;
   width: 140px;
-  height: 60px;
+  height: 4;
   padding: 2px;
   padding-top: 8px;
   font: 12px sans-serif;
@@ -101,25 +101,28 @@ background-color: rgb(14, 104, 238);
 .bg-image {
   background-image: url("/static/images/globe1.jpg");
   /* background-color: #cccccc; */
-  height: 900px;
-  opacity: .75S;
+  width: 100%;
+  height: 100%;
+  opacity: .35;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  }
+  z-index: -1;
+}
 
-  b {
-    color: black;
-    font-size: 35px;
-    }
-  
-  c {
-    color: black;
-    font-size: 30px;
-    }  
+b {
+  color: black;
+  font-size: 35px;
+  font-style: bold;
+}
 
-  li {
-    color: red;
-    font-size: 25px;
-    }
+c {
+  color: black;
+  font-size: 30px;
+}
+
+li {
+  color: black;
+  font-size: 25px;
+}
